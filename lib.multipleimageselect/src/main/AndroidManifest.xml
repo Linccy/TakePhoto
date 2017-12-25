@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.darsh.multipleimageselect" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/album_view" >
+        <activity
+            android:name=".ui.AlbumSelectActivity"
+            android:label="@string/album_view"
+            android:theme="@style/MultipleImageSelectTheme"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.ImageSelectActivity"
+            android:label="@string/album_view"
+            android:theme="@style/MultipleImageSelectTheme"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+          android:name=".ui.ImagesPreviewActivity"
+          android:label="@string/album_view"
+          android:theme="@style/MultipleImageSelectTheme"
+          android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.ImageBrowsActivity"
+                  android:label="@string/album_view"
+                  android:theme="@style/MultipleImageSelectTheme"
+                  android:windowNoTitle="true"
+                  android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

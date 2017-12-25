@@ -1,0 +1,7 @@
+﻿<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/image_selected" android:state_focused="true"/>
+    <item android:drawable="@drawable/image_selected" android:state_selected="true"/>
+    <item android:drawable="@drawable/image_un_select"/>
+
+</selector>

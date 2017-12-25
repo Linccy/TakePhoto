@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -52,8 +53,28 @@ public class TUriParse {
     public static Uri getTempUri(Context context){
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File file=new File(Environment.getExternalStorageDirectory(), "/images/"+timeStamp + ".jpg");
-        if (!file.getParentFile().exists())file.getParentFile().mkdirs();
+        if (!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+        }
         return getUriForFile(context,file);
+    }
+
+    /**
+     * 批量获取一个临时的Uri, 文件名随机生成
+     * @param context
+     * @return
+     */
+    public static Uri[] getTempUris(Context context, int count){
+        Uri[] uris = new Uri[count];
+        for(int i=0;i<count;i++) {
+            String timeStamp = String.valueOf(System.currentTimeMillis());
+            File file = new File(Environment.getExternalStorageDirectory(), "/images/" + timeStamp + ".jpg");
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            uris[i] = Uri.parse(parseOwnUri(context, getUriForFile(context, file)));
+        }
+        return uris;
     }
 
     /**
@@ -84,7 +105,12 @@ public class TUriParse {
      * @return
      */
     public static Uri getUriForFile(Context context, File file) {
-        return FileProvider.getUriForFile(context,TConstant.getFileProviderName(context), file);
+      // FIXME: 2017/10/9 暂时先这样规避一下
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            return Uri.fromFile(file);
+        } else {
+            return FileProvider.getUriForFile(context, TConstant.getFileProviderName(context), file);
+        }
     }
 
     /**
@@ -96,7 +122,7 @@ public class TUriParse {
         if(uri==null)return null;
         String path;
         if(TextUtils.equals(uri.getAuthority(),TConstant.getFileProviderName(context))){
-            path=new File(uri.getPath().replace("camera_photos/","")).getAbsolutePath();
+            path=new File(uri.getPath().replace("aicoin_file_cache/","")).getAbsolutePath();
         }else {
             path=uri.getPath();
         }

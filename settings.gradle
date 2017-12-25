@@ -1,1 +1,1 @@
-include ':takephoto_library', ':simple'
+include ':takephoto_library', ':simple', ':lib.multipleimageselect'

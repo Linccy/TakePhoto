@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -14,12 +15,14 @@ import android.widget.Toast;
 import com.jph.takephoto.R;
 import com.jph.takephoto.model.TException;
 import com.jph.takephoto.model.TExceptionType;
+import com.jph.takephoto.model.TImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -56,6 +59,16 @@ public class TImageFiles {
             }
         }
     }
+
+    public static ArrayList<TImage> writeToFiles(@NonNull Bitmap[] bitmaps, ArrayList<Uri> imageUris){
+        File[] files = new File[bitmaps.length];
+        for (int i = 0; i < bitmaps.length; i++) {
+            writeToFile(bitmaps[i], imageUris.get(i));
+        }
+        return TUtils.getTImagesWithUris(imageUris, TImage.FromType.OTHER);
+    }
+
+
     /**
      * InputStream 转File
      * */

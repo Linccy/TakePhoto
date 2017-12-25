@@ -52,12 +52,25 @@ public class TUtils {
      * @param images
      * @return
      */
-    public static ArrayList<TImage> getTImagesWithImages(ArrayList<Image>images, TImage.FromType fromType){
-        ArrayList<TImage>tImages=new ArrayList();
-        for(Image image:images){
+    public static ArrayList<TImage> getTImagesWithImages(ArrayList<Image> images, TImage.FromType fromType) {
+        ArrayList<TImage> tImages = new ArrayList();
+        for (Image image : images) {
             tImages.add(TImage.of(image.path, fromType));
         }
         return tImages;
+    }
+
+    /**
+     * 将TImage集合转换成Image集合
+     * @param TImages
+     * @return
+     */
+    public static ArrayList<Image> getImagesWithTImages(List<TImage> TImages){
+        ArrayList<Image> images = new ArrayList<>();
+        for (TImage image : TImages) {
+            images.add(new Image(image.getOriginalPath()));
+        }
+        return images;
     }
     /**
      * 将Uri集合转换成TImage集合
